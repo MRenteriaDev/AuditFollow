@@ -55,7 +55,7 @@ namespace API.Controllers
             var user = await _context.Users.SingleOrDefaultAsync(x =>
                         x.UserName == loginDto.UserName);
 
-            if (user == null) return Unauthorized("");
+            if (user == null) return Unauthorized("Invalid login, type again username or password");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 

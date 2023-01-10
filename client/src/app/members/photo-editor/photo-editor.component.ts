@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Photo } from 'src/app/_models/photo';
@@ -23,7 +24,8 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private memberService: MembersService
+    private memberService: MembersService,
+    private toastr: ToastrService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -72,10 +74,10 @@ export class PhotoEditorComponent implements OnInit {
               this.member.photos = this.member.photos.filter(
                 (x) => x.id !== photoId
               );
+              this.toastr.error('Your image has been deleted.');
             }
           },
         });
-        Swal.fire('Deleted!', 'Your image has been deleted.', 'success');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Cancelled', 'Your image is safe :)', 'error');
       }

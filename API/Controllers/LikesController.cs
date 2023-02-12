@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<LikeDto>>> GteUserLike([FromQuery] LikesParams likesParams)
+        public async Task<ActionResult<PagedList<LikeDto>>> GetUserLike([FromQuery] LikesParams likesParams)
         {
             likesParams.UserId = User.GetUserId();
 
